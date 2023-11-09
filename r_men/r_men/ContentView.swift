@@ -1,12 +1,11 @@
-//////
-//////  ContentView.swift
-//////  r_men
-//////
-//////  Created by 柴田武蔵 on 2023/05/15.
-//////
+//
+//  ContentView.swift
+//  r_men
+//
+//  Created by 柴田武蔵 on 2023/05/15.
+//
 
 import SwiftUI
-
 //ForEachに渡すデータコレクション
 var cityArray = [
     "名古屋市中区","名古屋市中村区","名古屋市中川区","名古屋市北区","名古屋市千種区","名古屋市南区","名古屋市名東区","名古屋市天白区","名古屋市守山区","名古屋市昭和区","名古屋市中川東区","名古屋市港区","名古屋市熱田区","名古屋市瑞穂区","名古屋市緑区","名古屋市西区","あま市","みよし市","一宮市","刈谷市","北名古屋市","半田市","南知多市","大府市","安城市","小牧市","尾張旭市","岡崎市","岩倉市","常滑市","弥富市","愛西市","新城市","日進市","春日井市","東海市","江南市","津島市","清須市","瀬戸市","犬山市","田原市","知多市","知立市","碧南市","稲沢市","蒲郡市","西尾市","豊川市","豊明市","豊橋市","豊田市","長久手市","高浜市","丹羽郡","北設楽郡","愛知郡","海部郡","知多郡","西春日井郡","額田郡"]
@@ -255,23 +254,22 @@ struct ContentView: View {
         /// URLにアクセス
         URLSession.shared.dataTask(with: request) { data, response, error in
             if let data = data {
-                guard let stringdata = String(data: data, encoding: .utf8) else {
+                guard let stringData = String(data: data, encoding: .utf8) else {
                     print("Json decode エラー")
                     return
                 }
                 DispatchQueue.main.async {
-                    result = stringdata
+                    result = stringData
                 }
             } else {
                 print("Fetch failed: \(error?.localizedDescription ?? "Unknown error")")
             }
-
         }.resume()      // タスク開始処理（必須）
     }
 }
 
 //citiesViewのプレビュー
-struct citiesViewWapper:View {
+struct citiesViewWrapper:View {
 
     @State var isModal = false
     @State var cities = ""
@@ -284,59 +282,6 @@ struct citiesViewWapper:View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-        citiesViewWapper()
+        citiesViewWrapper()
     }
 }
-
-
-//import SwiftUI
-//
-//struct ContentView: View {
-//    @State private var result = ""
-//
-//    /// データ読み込み処理
-//    func loadData() {
-//        var text = "http://127.0.0.1:80/index.php?param=名古屋市南区"
-//        text = text.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
-//
-//        /// URLの生成
-//        guard let url = URL(string: text) else {
-//            /// 文字列が有効なURLでない場合の処理
-//            return
-//        }
-//
-//        /// URLリクエストの生成
-//        let request = URLRequest(url: url)
-//
-//        /// URLにアクセス
-//        URLSession.shared.dataTask(with: request) { data, response, error in
-//            if let data = data {
-//                guard let stringdata = String(data: data, encoding: .utf8) else {
-//                    print("Json decode エラー")
-//                    return
-//                }
-//                DispatchQueue.main.async {
-//                    result = stringdata
-//                }
-//            } else {
-//                print("Fetch failed: \(error?.localizedDescription ?? "Unknown error")")
-//            }
-//
-//        }.resume()      // タスク開始処理（必須）
-//    }
-//
-//    var body: some View {
-//        ZStack {
-//            Text(result)
-//        }
-//        .onAppear() {
-//            loadData()
-//        }
-//    }
-//}
-//
-//struct ContentView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ContentView()
-//    }
-//}
